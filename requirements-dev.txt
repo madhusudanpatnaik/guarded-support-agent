@@ -1,0 +1,6 @@
+# toolagent: generated from pyproject.toml — keep the two in sync (tests/test_packaging.py checks).
+# Optional group 'dev' (same as: pip install -e ".[dev]")
+-r requirements.txt
+pytest>=8
+mypy>=1.10
+ruff>=0.5

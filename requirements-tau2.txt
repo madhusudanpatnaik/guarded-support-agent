@@ -1,0 +1,4 @@
+# toolagent: generated from pyproject.toml — keep the two in sync (tests/test_packaging.py checks).
+# Optional group 'tau2' (same as: pip install -e ".[tau2]")
+-r requirements.txt
+tau2 @ git+https://github.com/sierra-research/tau2-bench.git@v1.0.1

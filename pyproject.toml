@@ -1,0 +1,55 @@
+[project]
+name = "toolagent"
+version = "0.1.0"
+description = "A multi-step ReAct tool-use agent with a gate on every call, human review of irreversible actions, rollback of reversible ones, and a trace of every step — scored on a stateful back office and on ToolBench."
+requires-python = ">=3.12"
+license = "MIT"
+dependencies = [
+    "anthropic>=1.13",         # the model; needs ANTHROPIC_API_KEY for live runs
+    "pydantic>=2.11",          # tool argument schemas and validation
+    "httpx>=0.27",             # StableToolBench's API server, and `toolagent download`
+    "opentelemetry-api>=1.20", # spans can be replayed into any OpenTelemetry backend
+]
+
+[project.optional-dependencies]
+# The OpenTelemetry SDK and OTLP exporter for `--otlp`; the library itself needs only the API.
+otel = ["opentelemetry-sdk>=1.20", "opentelemetry-exporter-otlp-proto-http>=1.20"]
+# τ²-bench is not on PyPI: installed from its repository at the release the adapter is written
+# against. Its user simulator needs a model key.
+tau2 = ["tau2 @ git+https://github.com/sierra-research/tau2-bench.git@v1.0.1"]
+dev = ["pytest>=8", "mypy>=1.10", "ruff>=0.5"]
+
+[project.scripts]
+toolagent = "toolagent.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true  # the tau2 extra installs from GitHub
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/toolagent"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src", "tests"]
+mypy_path = "src"
+
+[[tool.mypy.overrides]]
+# optional extras: `otel` (imported only by export_with_sdk) and `tau2` (only by tau2_agent)
+module = ["opentelemetry.sdk.*", "opentelemetry.exporter.*", "tau2.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

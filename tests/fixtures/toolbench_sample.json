@@ -1,0 +1,69 @@
+[
+  {
+    "api_list": [
+      {
+        "category_name": "Data",
+        "tool_name": "Simple Weather",
+        "api_name": "Current Weather",
+        "api_description": "Current conditions for a city.",
+        "required_parameters": [
+          {"name": "city", "type": "STRING", "description": "City name", "default": "Paris"}
+        ],
+        "optional_parameters": [
+          {"name": "units", "type": "STRING", "description": "metric or imperial", "default": "metric"}
+        ],
+        "method": "GET",
+        "template_response": {"temp": "float", "summary": "str"}
+      },
+      {
+        "category_name": "Data",
+        "tool_name": "Simple Weather",
+        "api_name": "5 Day Forecast",
+        "api_description": "Daily forecast for a location.",
+        "required_parameters": [
+          {"name": "lat", "type": "NUMBER", "description": "Latitude", "default": "48.85"},
+          {"name": "lon", "type": "NUMBER", "description": "Longitude", "default": "2.35"}
+        ],
+        "optional_parameters": [
+          {"name": "from", "type": "NUMBER", "description": "First day offset", "default": ""}
+        ],
+        "method": "GET",
+        "template_response": {"days": "list"}
+      },
+      {
+        "category_name": "Data",
+        "tool_name": "Simple Weather",
+        "api_name": "Current Weather",
+        "api_description": "Current conditions for a city.",
+        "required_parameters": [
+          {"name": "city", "type": "STRING", "description": "City name", "default": "Paris"}
+        ],
+        "optional_parameters": [],
+        "method": "GET",
+        "template_response": {}
+      }
+    ],
+    "query": "What is the weather in Paris right now, and what is the forecast for the next days?",
+    "relevant APIs": [["Simple Weather", "Current Weather"], ["Simple Weather", "5 Day Forecast"]],
+    "query_id": 101
+  },
+  {
+    "api_list": [
+      {
+        "category_name": "Entertainment",
+        "tool_name": "Jokes API!",
+        "api_name": "Get Joke",
+        "api_description": "",
+        "required_parameters": [],
+        "optional_parameters": [
+          {"name": "safe", "type": "BOOLEAN", "description": "", "default": "true"}
+        ],
+        "method": "GET",
+        "template_response": {"joke": "str"}
+      }
+    ],
+    "query": "Tell me a clean joke.",
+    "relevant APIs": [["Jokes API!", "Get Joke"]],
+    "query_id": 102
+  }
+]

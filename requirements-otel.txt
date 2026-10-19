@@ -1,0 +1,5 @@
+# toolagent: generated from pyproject.toml — keep the two in sync (tests/test_packaging.py checks).
+# Optional group 'otel' (same as: pip install -e ".[otel]")
+-r requirements.txt
+opentelemetry-sdk>=1.20
+opentelemetry-exporter-otlp-proto-http>=1.20
